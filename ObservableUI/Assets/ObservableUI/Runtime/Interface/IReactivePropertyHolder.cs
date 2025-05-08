@@ -3,10 +3,7 @@ using UniRx;
 
 namespace Nitou.ObservableUI {
 	
-	public interface IReactivePropertyHolder<T> where T : struct {
+	public interface IReactivePropertyHolder<T> {
 		IReactiveProperty<T> ReactiveProperty { get; }
 	}
-
-
-
 }

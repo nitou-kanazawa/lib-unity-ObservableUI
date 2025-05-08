@@ -8,7 +8,7 @@ namespace Nitou.ObservableUI {
 
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(TMP_Dropdown))]
-	public abstract class ReactiveDoropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
+	public abstract class ReactiveDropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
 		where TEnum : Enum {
 
 		private TMP_Dropdown _dropdown;
@@ -22,24 +22,23 @@ namespace Nitou.ObservableUI {
 		// LifeCycle Events
 
 		private void Awake() {
-			OnValidate();
+			_dropdown ??= GetComponent<TMP_Dropdown>();
+			UpdateView();
 
 			// Viewの更新
 			_dropdown.onValueChanged.AsObservable()
 				.Subscribe(index => {
-					if ( index.IsInRange(enumValues))
-						_currentRP.Value = enumValues[index];
-					else
-						Setup();
+					if (0 <= index && index < kEnumValues.Length) {
+						_currentRP.Value = kEnumValues[index];
+					} else {
+						UpdateView();
+					}
 				})
 				.AddTo(this);
 
 			// RPの更新
 			_currentRP
-				.Subscribe(type => {
-					_dropdown.value = GetEnumIndex(type);
-					_dropdown.RefreshShownValue();
-				})
+				.Subscribe(type => RefreshDropdownValue())
 				.AddTo(this);
 		}
 
@@ -56,12 +55,9 @@ namespace Nitou.ObservableUI {
 		/// ----------------------------------------------------------------------------
 		// Public Method
 
-		public void SetValue(TEnum type) {
-			_currentRP.Value = type;
-		}
-
-		public TEnum GetValue() {
-			return _currentRP.Value;
+		public void UpdateView() {
+			SetupOptions();
+			RefreshDropdownValue();
 		}
 
 
@@ -71,7 +67,9 @@ namespace Nitou.ObservableUI {
 		private void SetupOptions() {
 			// Enumの名前リストを取得してDropdownのオプションに設定
 			_dropdown.options.Clear();
-			_dropdown.options.AddRange(kEnumValues.Select(name => new TMP_Dropdown.OptionData(name.ToString())));
+			_dropdown.options.AddRange(
+				kEnumValues.Select(name => new TMP_Dropdown.OptionData(name.ToString()))
+			);
 		}
 
 		private void RefreshDropdownValue() {
@@ -90,8 +88,6 @@ namespace Nitou.ObservableUI {
 			return Math.Max(0, index);
 		}
 		#endregion
-
-
 
 	}
 }

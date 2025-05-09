@@ -138,10 +138,10 @@ namespace UniRx {
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static IDisposable BindToDropdown(this IReactiveProperty<int> property, TMP_Dropdown dropdown) {
+		/// <summary>
+		/// <see cref="TMP_Dropdown"/>への双方向バインディング．
+		/// </summary>
+		public static IDisposable BindToDropdown(this IReactiveProperty<int> property, TMP_Dropdown dropdown) {
             // Model → View
             var d1 = property.SubscribeWithState(dropdown, (x, d) => d.value = x);
 
@@ -152,10 +152,10 @@ namespace UniRx {
 			return StableCompositeDisposable.Create(d1, d2);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static IDisposable BindToDropdown<T>(
+		/// <summary>
+		/// <see cref="TMP_Dropdown"/>への双方向バインディング．
+		/// </summary>
+		public static IDisposable BindToDropdown<T>(
             this IReactiveProperty<T> property, TMP_Dropdown dropdown,
             Func<T, int> toDropdownValue, Func<int, T> fromDropdownValue) {
             // Model → View
@@ -170,9 +170,7 @@ namespace UniRx {
 
 			return StableCompositeDisposable.Create(d1, d2);
         }
-
         #endregion
-
 
 
         /// ----------------------------------------------------------------------------
@@ -195,10 +193,10 @@ namespace UniRx {
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static IDisposable BindToSlider(this IReactiveProperty<float> property, Slider slider) {
+		/// <summary>
+		/// <see cref="Slider"/>への双方向バインディング．
+		/// </summary>
+		public static IDisposable BindToSlider(this IReactiveProperty<float> property, Slider slider) {
             // Model → View
             var d1 = property.SubscribeWithState(slider, (x, s) => s.value = x);
 
@@ -222,16 +220,23 @@ namespace UniRx {
 
 			return StableCompositeDisposable.Create(d1, d2);
         }
-        #endregion
+		#endregion
 
 
-        /// ----------------------------------------------------------------------------
-        #region Toggle
+		/// ----------------------------------------------------------------------------
+		#region Toggle
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static IDisposable BindToToggle(this IReactiveProperty<bool> property, Toggle toggle) {
+		/// <summary>
+		/// <see cref="Toggle"/>への単方向バインディング．
+		/// </summary>
+		public static IDisposable SubscribeToToggle(this IObservable<bool> source, Toggle toggle) {
+			return source.SubscribeWithState(toggle, (x, s) => s.isOn = x);
+		}
+
+		/// <summary>
+		/// <see cref="Toggle"/>への双方向バインディング．
+		/// </summary>
+		public static IDisposable BindToToggle(this IReactiveProperty<bool> property, Toggle toggle) {
             // Model → View
             var d1 = property.SubscribeWithState(toggle, (x, t) => t.isOn = x);
 
@@ -246,9 +251,8 @@ namespace UniRx {
         /// 
         /// </summary>
         [Obsolete("実験的なAPIであり，変更される可能性があります．")]
-        public static void BindToToggleGroup<T>(this IReactiveProperty<T> property, 
-            IEnumerable<Toggle> toggles, IEnumerable<T> values,
-            ICollection<IDisposable> disposables) 
+        public static IDisposable BindToToggleGroup<T>(this IReactiveProperty<T> property, 
+            IEnumerable<Toggle> toggles, IEnumerable<T> values) 
             where T : Enum {
 
             int toggleCount = toggles.Count();
@@ -260,19 +264,19 @@ namespace UniRx {
             var toggleValuePairs = toggles.Zip(values, (toggle, value) => (toggle, value));
             var toggleStreams = toggleValuePairs.Select(pair => pair.toggle.OnValueChangedAsObservable().Where(isOn => isOn).Select(_ => pair.value));
 
-            toggleStreams
-                .Merge()
-                .SubscribeWithState(property, (value, p) => p.Value = value)
-                .AddTo(disposables);
+			var d1 = toggleStreams
+				.Merge()
+				.SubscribeWithState(property, (value, p) => p.Value = value);
 
-            // Model → View
-            property
-                .Subscribe(current => {
-                    foreach (var (toggle, value) in toggleValuePairs) {
-                        toggle.isOn = EqualityComparer<T>.Default.Equals(current, value);
-                    }
-                })
-                .AddTo(disposables);
+			// Model → View
+			var d2 = property
+				.Subscribe(current => {
+					foreach (var (toggle, value) in toggleValuePairs) {
+						toggle.isOn = EqualityComparer<T>.Default.Equals(current, value);
+					}
+				});
+
+			return StableCompositeDisposable.Create(d1, d2);
         }
 
         #endregion
@@ -294,6 +298,13 @@ namespace UniRx {
         public static IDisposable SubscribeToImageColor(this IObservable<Color> source, Image image) {
             return source.SubscribeWithState(image, (x, i) => i.color = x);
         }
-        #endregion
-    }
+		#endregion
+
+
+		/// ----------------------------------------------------------------------------
+		#region ScrollRect
+
+
+		#endregion
+	}
 }

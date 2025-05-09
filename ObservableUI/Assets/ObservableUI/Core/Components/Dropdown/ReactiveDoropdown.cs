@@ -3,7 +3,7 @@ using TMPro;
 using UniRx;
 using System;
 using System.Linq;
-
+/*
 namespace Nitou.ObservableUI {
 
 	[DisallowMultipleComponent]
@@ -95,3 +95,4 @@ namespace Nitou.ObservableUI {
 
 	}
 }
+*/

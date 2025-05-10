@@ -2,6 +2,10 @@
 
 UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 
+<img src="docs/images/header.png" width=800>
+
+[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE)
+
 #### 依存ライブラリ
 - [UniRx][github: UniRx]
 
@@ -10,18 +14,6 @@ UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 - Unity UI `2.0.0`
 - Localization `1.5.4`
 - UniRx `7.1.0`
-
-
-## 導入方法
-
-#### UPM Package
-Package Manager を開き，「git packageから追加」で `https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI` を指定します．
-
-もしくは，`Packages/manifest.json` に以下を追加してください．
-```
-https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI
-```
-
 
 ## 機能
 
@@ -67,8 +59,18 @@ reactiveIF.ReactiveProperity
     .AddTo(this);
 ```
 
+## 導入方法
 
----
+#### UPM Package
+Package Manager を開き，「git packageから追加」で `https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI` を指定します．
+
+もしくは，`Packages/manifest.json` に以下を追加してください．
+```
+https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI
+```
+
+
+
 <!-- Link -->
 [github: UniRx]: https://github.com/neuecc/UniRx/tree/master
 [github: UnityUIComponentExtensions]: https://github.com/neuecc/UniRx/blob/master/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/UnityUIComponentExtensions.cs

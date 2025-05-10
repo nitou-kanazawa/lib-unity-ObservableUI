@@ -8,8 +8,8 @@ namespace Nitou.ObservableUI {
 	/// 
 	/// </summary>
 	[DisallowMultipleComponent]
-	public abstract class ReactiveInputField<T> : MonoBehaviour, IReactiveInputField<T> 
-		where T : struct{
+	public abstract class ReactiveInputField<T> : MonoBehaviour, IReactiveInputField<T>
+		where T : struct {
 
 		protected readonly ReactiveProperty<T> _property = new();
 
@@ -23,11 +23,14 @@ namespace Nitou.ObservableUI {
 
 		private void Awake() {
 
+			// Init viewdata
 			if (TryParseFromView(out var initValue))
 				_property.Value = initValue;
 
+			// viewdata -> view
 			_property.Subscribe(SetToView).AddTo(this);
 
+			// view -> viewdata
 			ObserveEndEditEvent()
 				.Subscribe(_ => {
 					if (TryParseFromView(out var value))
@@ -51,6 +54,5 @@ namespace Nitou.ObservableUI {
 		protected abstract void SetToView(T value);
 
 		protected abstract IObservable<Unit> ObserveEndEditEvent();
-
 	}
 }

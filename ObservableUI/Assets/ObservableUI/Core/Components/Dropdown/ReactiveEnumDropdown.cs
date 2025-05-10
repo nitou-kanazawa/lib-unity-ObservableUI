@@ -8,7 +8,7 @@ namespace Nitou.ObservableUI {
 
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(TMP_Dropdown))]
-	public abstract class ReactiveDropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
+	public abstract class ReactiveEnumDropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
 		where TEnum : Enum {
 
 		private TMP_Dropdown _dropdown;
@@ -47,8 +47,7 @@ namespace Nitou.ObservableUI {
 		}
 
 		private void OnValidate() {
-			if (_dropdown is null)
-				_dropdown = GetComponent<TMP_Dropdown>();
+			_dropdown ??= GetComponent<TMP_Dropdown>();
 		}
 
 

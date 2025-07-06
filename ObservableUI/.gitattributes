@@ -1,6 +1,0 @@
-# フォルダ全体を除外する場合
-Assets/TextMeshPro/** linguist-vendored
-
-# サードパーティライブラリを除外
-Assets/Plugins/** linguist-vendored
-Assets/ThirdParty/** linguist-vendored

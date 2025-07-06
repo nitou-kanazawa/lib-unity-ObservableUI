@@ -1,0 +1,9 @@
+
+
+# サードパーティライブラリを除外
+ObservableUI/Assets/TextMeshPro/** linguist-vendored
+ObservableUI/Assets/Plugins/** linguist-vendored
+
+# 自動生成ファイル
+*.meta linguist-generated
+*.unity linguist-generated

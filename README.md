@@ -17,33 +17,61 @@ UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 
 ## 機能
 
+#### フォルダ構成
+
+```
+├── ObservableUI
+     ├── Core
+     │   ├── Interfaces
+     │   ├── Components
+     │   ├── Extensions
+     ├── Editor
+```
+
+- `Interfaces` - Observable UI のインターフェース定義
+- `Components` - Observable UI のコンポーネント実装
+- `Extensions` - 拡張メソッド
+
+
 #### 拡張メソッド
 
-UniRx では [`UnityUIComponentExtensions`クラス][github: UnityUIComponentExtensions]で uGUI に対する拡張メソッド（`OnValueChangedAsObservable` や `SubscribeToText` など）が提供されています．
+UniRx では [`UnityUIComponentExtensions`クラス][github: UnityUIComponentExtensions]で uGUI に対する拡張メソッド（イベントObservable化やバインディングなど）が提供されています．
 
 本ライブラリではこれらに，以下を追加します．
 - 主要コンポーネントへの双方向バインド（`BindToXXX`）
 - `TextMeshPro`コンポーネントの対応
 
+**Text** (TMP)：
 ```cs
-// Text (TMP)
 stringRP.SubscribeToText(textMeshPro);
 intRP.SubscribeToText(textMeshPro, value => t.text = $"{value} pt");
+```
 
-// InputField (TMP)
-
-
-// Dropdown (TMP)
-
-
-// Slider
-floatRP.SubscribeToSlider(slider);  // 0~1
-
-// Image
-
+**InputField** (TMP)：
+```cs
 
 ```
 
+**Dropdown** (TMP)：
+```cs
+
+```
+
+**Slider**：
+```cs
+floatRP.SubscribeToSlider(slider);  // 0~1
+```
+
+**Image**：
+```cs
+
+```
+
+> [!note]
+> 基本的にUniRx標準拡張メソッドと同様だが，`OnValueChangedAsObservable`では引数の`currentValue`で初期値でOnNextを発火するか選択できるようにしている．
+
+> [!note]
+> 単方向バインドを`SubscribeToXXX`，双方向バインドを`BindToXXX`と命名している．
 
 #### Reactive InputField
 

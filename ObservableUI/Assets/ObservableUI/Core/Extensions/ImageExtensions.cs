@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace UniRx
 {
+    /// <summary>
+    /// <see cref="Image"/>の拡張メソッド群．
+    /// </summary>
     public static partial class ImageExtensions
     {
         /// ----------------------------------------------------------------------------

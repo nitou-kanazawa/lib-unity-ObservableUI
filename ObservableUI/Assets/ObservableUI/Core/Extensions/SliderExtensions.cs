@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace UniRx
 {
+    /// <summary>
+    /// <see cref="Slider"/>の拡張メソッド群．
+    /// </summary>
     public static partial class SliderExtensions
     {
 
@@ -39,7 +42,7 @@ namespace UniRx
 
             // View → Model
             var d2 = slider.OnValueChangedAsObservable()
-              .SubscribeWithState(property, (x, p) => p.Value = x);
+                .SubscribeWithState(property, (x, p) => p.Value = x);
 
             return StableCompositeDisposable.Create(d1, d2);
         }
@@ -54,7 +57,7 @@ namespace UniRx
 
             // View → Model
             var d2 = slider.OnValueChangedAsObservable()
-              .SubscribeWithState(reactiveProperty, (value, p) => p.Value = value >= 0.5f);
+                .SubscribeWithState(reactiveProperty, (value, p) => p.Value = value >= 0.5f);
 
             return StableCompositeDisposable.Create(d1, d2);
         }

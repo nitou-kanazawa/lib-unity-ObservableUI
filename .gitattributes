@@ -7,3 +7,8 @@ ObservableUI/Assets/Plugins/** linguist-vendored
 # 自動生成ファイル
 *.meta linguist-generated
 *.unity linguist-generated
+
+# シェーダー関連
+*.shader linguist-vendored
+*.shadergraph linguist-vendored
+*.hlsl linguist-vendored

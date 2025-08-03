@@ -9,13 +9,13 @@ UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 #### 依存ライブラリ
 - [UniRx][github: UniRx]
 
-## 開発環境
+## 🌀 開発環境
 - Unity `6000.0.30f1`
 - Unity UI `2.0.0`
 - Localization `1.5.4`
 - UniRx `7.1.0`
 
-## 機能
+## 🌀 機能
 
 #### フォルダ構成
 
@@ -87,7 +87,7 @@ reactiveIF.ReactiveProperity
     .AddTo(this);
 ```
 
-## 導入方法
+## 🌀 導入方法
 
 #### UPM Package
 Package Manager を開き，「git packageから追加」で `https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI` を指定します．

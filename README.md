@@ -87,7 +87,7 @@ reactiveIF.ReactiveProperity
     .AddTo(this);
 ```
 
-## 🌀 導入方法
+## 🌀 セットアップ
 
 #### UPM Package
 Package Manager を開き，「git packageから追加」で `https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI` を指定します．

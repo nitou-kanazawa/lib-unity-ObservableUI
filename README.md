@@ -33,7 +33,7 @@ UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 - `Extensions` - 拡張メソッド
 
 
-#### 拡張メソッド
+#### 1. 拡張メソッド
 
 UniRx では [`UnityUIComponentExtensions`クラス][github: UnityUIComponentExtensions]で uGUI に対する拡張メソッド（イベントObservable化やバインディングなど）が提供されています．
 
@@ -68,12 +68,12 @@ floatRP.SubscribeToSlider(slider);  // 0~1
 ```
 
 > [!note]
-> 基本的にUniRx標準拡張メソッドと同様だが，`OnValueChangedAsObservable`では引数の`currentValue`で初期値でOnNextを発火するか選択できるようにしている．
+> 基本的にUniRx標準拡張メソッドと同様ですが，`OnValueChangedAsObservable`では引数の`currentValue`で初期値でOnNextを発火するか選択できるようにしています．
 
 > [!note]
-> 単方向バインドを`SubscribeToXXX`，双方向バインドを`BindToXXX`と命名している．
+> 単方向バインドを`SubscribeToXXX`，双方向バインドを`BindToXXX`と命名しています．
 
-#### Reactive InputField
+#### 2. Reactive InputField
 
 InputField は文字列形式でユーザー入力を受け付けるため，常にパース処理を意識する必要があります．
 `Reactive InputField` は文字列入力を内部で処理し，`ReactiveProperty` として外部に公開するラッパーコンポーネントです．Int や Float などのシンプルな入力用途で，拡張メソッドと合わせて使用すると便利です．

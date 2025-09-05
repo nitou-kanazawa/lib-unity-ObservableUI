@@ -1,19 +1,16 @@
 # Observable UI
 
+[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE)
+
+
 UniRx に uGUI 関連の機能を追加する軽量ライブラリ．
 
 <img src="docs/images/header.png" width=800>
 
-[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE)
 
-#### 依存ライブラリ
-- [UniRx][github: UniRx]
+## 🌀 概要
 
-## 🌀 開発環境
-- Unity `6000.0.30f1`
-- Unity UI `2.0.0`
-- Localization `1.5.4`
-- UniRx `7.1.0`
+
 
 ## 🌀 機能
 
@@ -87,16 +84,31 @@ reactiveIF.ReactiveProperity
     .AddTo(this);
 ```
 
+
 ## 🌀 セットアップ
+#### 要件 / 開発環境
+- Unity `6000.0.30f1`
+- Unity UI `2.0.0`
+- Localization `1.5.4`
+- [UniRx][github: UniRx] `7.1.0`
 
-#### UPM Package
-Package Manager を開き，「git packageから追加」で `https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI` を指定します．
+#### インストール
 
-もしくは，`Packages/manifest.json` に以下を追加してください．
+1. Window > Package ManagerからPackage Managerを開く
+2. 「+」ボタン > Add package from git URL
+3. 以下のURLを入力する
 ```
 https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI
 ```
 
+あるいはPackages/manifest.jsonを開き、dependenciesブロックに以下を追記
+```
+{
+    "dependencies": {
+        "jp.nitou.observableui": "https://github.com/nitou-kanazawa/lib-unity-ObservableUI.git?path=ObservableUI/Assets/ObservableUI"
+    }
+}
+```
 
 
 <!-- Link -->

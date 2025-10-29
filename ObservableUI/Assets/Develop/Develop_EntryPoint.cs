@@ -4,17 +4,36 @@ using UniRx;
 using TMPro;
 using Nitou.ObservableUI;
 
-public class Develop_EntryPoint : MonoBehaviour {
+public class Develop_EntryPoint : MonoBehaviour
+{
 
-	public Slider _slider;
-	public FloatReactiveInputField _inputField;
+    public Slider _slider;
+    public Button _button;
+    // public TextMeshProUGUI _text;
+    // public Toggle _toggle;
 
-	void Start() {
+    public FloatReactiveInputField _inputField;
 
-	 	_inputField.ReactiveProperty
-			.BindToSlider(_slider)
-			.AddTo(this);
+    void Start()
+    {
 
-	}
+        _inputField.ReactiveProperty
+            .BindToSlider(_slider)
+            .AddTo(this);
+
+        _button.OnDoubleClickAsObservable()
+            .Subscribe(_ =>
+            {
+                Debug.Log("Button double clicked!");
+            })
+            .AddTo(this);
+
+        _button.OnLongPressAsObservable(threshold: 1f)
+            .Subscribe(_ =>
+            {
+                Debug.Log("Button long pressed!");
+            })
+            .AddTo(this);
+    }
 
 }

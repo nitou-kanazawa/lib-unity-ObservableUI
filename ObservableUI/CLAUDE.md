@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**ObservableUI** is a Unity package that extends UniRx with reactive UI bindings for Unity's uGUI and TextMeshPro components. It provides bidirectional data binding, observable events, and reactive component wrappers for building reactive user interfaces in Unity.
+**ObservableUI** is a Unity package that extends R3 (Reactive Extensions for Unity) with reactive UI bindings for Unity's uGUI and TextMeshPro components. It provides bidirectional data binding, observable events, and reactive component wrappers for building reactive user interfaces in Unity.
 
 - **Package Name**: `jp.nitou.observableui`
 - **Version**: 1.0.0
@@ -19,9 +19,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The project is organized into two main assemblies:
 
 1. **ObservableUI** (Runtime) - `Assets/ObservableUI/Core/`
-   - Namespace: `Nitou.ObservableUI`
+   - Namespace: `Nitou.ObservableUI` (components), `R3` (extensions)
    - Contains reactive components, interfaces, and extension methods
-   - References: UniRx, Unity UI modules
+   - References: R3.Unity, R3.Unity.TextMeshPro, Unity UI modules
 
 2. **ObservableUI.Editor** (Editor-only) - `Assets/ObservableUI/Editor/`
    - Namespace: `Nitou.ObservableUI.Editor`
@@ -53,7 +53,7 @@ The framework consists of three main layers:
 
 ### Key Dependencies
 
-- **UniRx**: Installed via git URL `https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts`
+- **R3 (Reactive Extensions)**: Installed via git URL `https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity`
 - **TextMeshPro**: Primary text component (built into Unity 6+)
 - **Unity UI (uGUI)**: Core UI framework
 
@@ -84,7 +84,7 @@ Open the `ObservableUI.sln` solution file in your IDE.
 
 ### Reactive Component Pattern
 
-All reactive components follow this lifecycle:
+All reactive components follow this lifecycle using R3:
 
 ```csharp
 // Awake: Initialize reactive property from view
@@ -98,6 +98,8 @@ void OnDestroy() {
     _reactiveProperty?.Dispose();
 }
 ```
+
+Note: R3 uses `Disposable.Combine()` instead of `StableCompositeDisposable.Create()`
 
 ### Template Method Pattern
 
@@ -113,11 +115,14 @@ void OnDestroy() {
 
 ## Important Code Conventions
 
-1. **Reactive components use `where T : struct`** constraint for value types
-2. **Parse failures reset input fields** to previous valid value
-3. **All subscriptions use `AddTo(this)`** to prevent memory leaks
-4. **Editor validation** via `OnValidate()` for auto-assigning component references
-5. **Japanese comments** are common in the codebase
+1. **Using R3 instead of UniRx**: The codebase has migrated from UniRx to R3
+2. **Extension methods are in `R3` namespace**, not `UniRx` namespace
+3. **Reactive components use `where T : struct`** constraint for value types
+4. **Parse failures reset input fields** to previous valid value
+5. **All subscriptions use `AddTo(this)`** to prevent memory leaks
+6. **Editor validation** via `OnValidate()` for auto-assigning component references
+7. **Japanese comments** are common in the codebase
+8. **Use `Disposable.Combine()`** for combining disposables, not `StableCompositeDisposable.Create()`
 
 ## Known Incomplete Features
 

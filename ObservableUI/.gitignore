@@ -11,6 +11,9 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# NugetForUnity
+/Packages/nuget-packages/InstalledPackages*
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
@@ -72,3 +75,13 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Local configuration files (user-specific, machine-specific)
+*.local.*
+**/.local/**
+
+# JetBrains IDE (IntelliJ IDEA, Rider, etc.)
+.idea/
+
+# VS Code (optional - uncomment if you want to exclude VS Code settings)
+# .vscode/

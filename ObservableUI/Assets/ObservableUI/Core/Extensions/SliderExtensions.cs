@@ -1,67 +1,65 @@
 using System;
 using UnityEngine.UI;
 
-namespace UniRx
+namespace R3
 {
     /// <summary>
     /// <see cref="Slider"/>の拡張メソッド群．
     /// </summary>
     public static partial class SliderExtensions
     {
-
-        /// ----------------------------------------------------------------------------
         #region Binding
 
         /// <summary>
         /// <see cref="Slider"/>への単方向バインディング．
         /// </summary>
-        public static IDisposable SubscribeToSlider(this IObservable<float> source, Slider slider)
+        public static IDisposable SubscribeToSlider(this Observable<float> source, Slider slider)
         {
-            return source.SubscribeWithState(slider, (x, s) => s.value = x);
+            return source.Subscribe(x => slider.value = x);
         }
 
         /// <summary>
         /// <see cref="Slider"/>への単方向バインディング．
         /// </summary>
-        public static IDisposable SubscribeToSliderRange(this IObservable<(float min, float max)> source, Slider slider)
+        public static IDisposable SubscribeToSliderRange(this Observable<(float min, float max)> source, Slider slider)
         {
-            return source.SubscribeWithState(slider, (range, s) =>
+            return source.Subscribe(range =>
             {
-                s.minValue = range.min;
-                s.maxValue = range.max;
+                slider.minValue = range.min;
+                slider.maxValue = range.max;
             });
         }
 
         /// <summary>
         /// <see cref="Slider"/>への双方向バインディング．
         /// </summary>
-        public static IDisposable BindToSlider(this IReactiveProperty<float> property, Slider slider)
+        public static IDisposable BindToSlider(this ReactiveProperty<float> property, Slider slider)
         {
             // Model → View
-            var d1 = property.SubscribeWithState(slider, (x, s) => s.value = x);
+            var d1 = property.Subscribe(x => slider.value = x);
 
             // View → Model
             var d2 = slider.OnValueChangedAsObservable()
-                .SubscribeWithState(property, (x, p) => p.Value = x);
+                           .Subscribe(x => property.Value = x);
 
-            return StableCompositeDisposable.Create(d1, d2);
+            return Disposable.Combine(d1, d2);
         }
 
         /// <summary>
         /// <see cref="Slider"/>との双方向バインディング．
         /// </summary>
-        public static IDisposable BindToSlider(this IReactiveProperty<bool> reactiveProperty, Slider slider)
+        public static IDisposable BindToSlider(this ReactiveProperty<bool> reactiveProperty, Slider slider)
         {
             // Model → View
-            var d1 = reactiveProperty.SubscribeWithState(slider, (value, s) => s.value = value ? 1f : 0f);
+            var d1 = reactiveProperty.Subscribe(value => slider.value = value ? 1f : 0f);
 
             // View → Model
             var d2 = slider.OnValueChangedAsObservable()
-                .SubscribeWithState(reactiveProperty, (value, p) => p.Value = value >= 0.5f);
+                           .Subscribe(value => reactiveProperty.Value = value >= 0.5f);
 
-            return StableCompositeDisposable.Create(d1, d2);
+            return Disposable.Combine(d1, d2);
         }
+
         #endregion
     }
-
 }

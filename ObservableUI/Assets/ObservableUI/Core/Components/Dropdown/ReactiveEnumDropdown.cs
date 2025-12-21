@@ -1,93 +1,102 @@
 using UnityEngine;
 using TMPro;
-using UniRx;
+using R3;
 using System;
 using System.Linq;
 
 
-namespace Nitou.ObservableUI {
-
-	[DisallowMultipleComponent]
-	[RequireComponent(typeof(TMP_Dropdown))]
-	public abstract class ReactiveEnumDropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
-		where TEnum : Enum {
-
-		private TMP_Dropdown _dropdown;
-		private ReactiveProperty<TEnum> _currentRP = new();
-
-
-		public IReactiveProperty<TEnum> ReactiveProperty => _currentRP;
+namespace Nitou.ObservableUI
+{
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(TMP_Dropdown))]
+    public abstract class ReactiveEnumDropdown<TEnum> : MonoBehaviour, IReactivePropertyHolder<TEnum>
+        where TEnum : Enum
+    {
+        private TMP_Dropdown _dropdown;
+        private ReactiveProperty<TEnum> _currentRP = new();
 
 
-		/// ----------------------------------------------------------------------------
-		// LifeCycle Events
-
-		private void Awake() {
-			_dropdown ??= GetComponent<TMP_Dropdown>();
-			UpdateView();
-
-			// Viewの更新
-			_dropdown.onValueChanged.AsObservable()
-				.Subscribe(index => {
-					if (0 <= index && index < kEnumValues.Length) {
-						_currentRP.Value = kEnumValues[index];
-					} else {
-						UpdateView();
-					}
-				})
-				.AddTo(this);
-
-			// RPの更新
-			_currentRP
-				.Subscribe(type => RefreshDropdownValue())
-				.AddTo(this);
-		}
-
-		private void OnDestroy() {
-			_currentRP?.Dispose();
-		}
-
-		private void OnValidate() {
-			_dropdown ??= GetComponent<TMP_Dropdown>();
-		}
+        public ReactiveProperty<TEnum> ReactiveProperty => _currentRP;
 
 
-		/// ----------------------------------------------------------------------------
-		// Public Method
+        /// ----------------------------------------------------------------------------
+        // LifeCycle Events
+        private void Awake()
+        {
+            _dropdown ??= GetComponent<TMP_Dropdown>();
+            UpdateView();
 
-		public void UpdateView() {
-			SetupOptions();
-			RefreshDropdownValue();
-		}
+            // Viewの更新
+            _dropdown.onValueChanged.AsObservable()
+                     .Subscribe(index =>
+                     {
+                         if (0 <= index && index < kEnumValues.Length)
+                         {
+                             _currentRP.Value = kEnumValues[index];
+                         }
+                         else
+                         {
+                             UpdateView();
+                         }
+                     })
+                     .AddTo(this);
+
+            // RPの更新
+            _currentRP
+                .Subscribe(type => RefreshDropdownValue())
+                .AddTo(this);
+        }
+
+        private void OnDestroy()
+        {
+            _currentRP?.Dispose();
+        }
+
+        private void OnValidate()
+        {
+            _dropdown ??= GetComponent<TMP_Dropdown>();
+        }
 
 
-		/// ----------------------------------------------------------------------------
-		// Private Method
-
-		private void SetupOptions() {
-			// Enumの名前リストを取得してDropdownのオプションに設定
-			_dropdown.options.Clear();
-			_dropdown.options.AddRange(
-				kEnumValues.Select(name => new TMP_Dropdown.OptionData(name.ToString()))
-			);
-		}
-
-		private void RefreshDropdownValue() {
-			_dropdown.value = GetEnumIndex(_currentRP.Value);
-			_dropdown.RefreshShownValue();
-		}
+        /// ----------------------------------------------------------------------------
+        // Public Method
+        public void UpdateView()
+        {
+            SetupOptions();
+            RefreshDropdownValue();
+        }
 
 
-		/// ----------------------------------------------------------------------------
-		#region Static
+        /// ----------------------------------------------------------------------------
+        // Private Method
+        private void SetupOptions()
+        {
+            // Enumの名前リストを取得してDropdownのオプションに設定
+            _dropdown.options.Clear();
+            _dropdown.options.AddRange(
+                kEnumValues.Select(name => new TMP_Dropdown.OptionData(name.ToString()))
+            );
+        }
 
-		private static readonly TEnum[] kEnumValues = (TEnum[])Enum.GetValues(typeof(TEnum));
+        private void RefreshDropdownValue()
+        {
+            _dropdown.value = GetEnumIndex(_currentRP.Value);
+            _dropdown.RefreshShownValue();
+        }
 
-		private static int GetEnumIndex(TEnum type) {
-			var index = Array.IndexOf(kEnumValues, type);
-			return Math.Max(0, index);
-		}
-		#endregion
 
-	}
+        /// ----------------------------------------------------------------------------
+
+        #region Static
+
+        private static readonly TEnum[] kEnumValues = (TEnum[])Enum.GetValues(typeof(TEnum));
+
+        private static int GetEnumIndex(TEnum type)
+        {
+            var index = Array.IndexOf(kEnumValues, type);
+            return Math.Max(0, index);
+        }
+
+        #endregion
+    }
 }

@@ -1,17 +1,16 @@
 using System;
-using UnityEngine;
 
-namespace Nitou.ObservableUI {
+namespace Nitou.ObservableUI
+{
+    public interface IReactiveInputFieldStepper<T> : IReactiveInputField<T>
+        where T : struct
+    {
+        T Delta { get; }
 
-	public interface IReactiveInputFieldStepper<T> : IReactiveInputField<T>
-		where T : struct {
+        void MovePrevious();
+        void MoveNext();
 
-		T Delta { get; }
-
-		void MovePrevious();
-		void MoveNext();
-
-		bool CanMovePrevious();
-		bool CanMoveNext();
-	}
+        bool CanMovePrevious();
+        bool CanMoveNext();
+    }
 }

@@ -1,9 +1,10 @@
 using UnityEngine;
-using UniRx;
+using R3;
 
-namespace Nitou.ObservableUI {
-	
-	public interface IReactivePropertyHolder<T>  {
-		IReactiveProperty<T> ReactiveProperty { get; }
-	}
+namespace Nitou.ObservableUI
+{
+    public interface IReactivePropertyHolder<T>
+    {
+        ReactiveProperty<T> ReactiveProperty { get; }
+    }
 }

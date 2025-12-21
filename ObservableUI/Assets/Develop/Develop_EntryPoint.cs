@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 using TMPro;
 using Nitou.ObservableUI;
+using R3;
 
 public class Develop_EntryPoint : MonoBehaviour
 {

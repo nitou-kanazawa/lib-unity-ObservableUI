@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using UnityEngine;
 using TMPro;
 using R3;
@@ -30,12 +31,12 @@ namespace Nitou.ObservableUI
         // Protected Method
         protected override bool TryParseFromView(out int value)
         {
-            return int.TryParse(_inputField.text, out value);
+            return int.TryParse(_inputField.text, NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
         }
 
         protected override void SetToView(int value)
         {
-            _inputField.text = value.ToString();
+            _inputField.text = value.ToString(CultureInfo.InvariantCulture);
         }
 
         protected override Observable<Unit> ObserveEndEditEvent()

@@ -15,7 +15,7 @@ namespace Nitou.ObservableUI
 
         public ReactiveProperty<T> ReactiveProperty => _property;
 
-        public abstract bool IsIntaractable { get; set; }
+        public abstract bool IsInteractable { get; set; }
 
 
         /// ----------------------------------------------------------------------------

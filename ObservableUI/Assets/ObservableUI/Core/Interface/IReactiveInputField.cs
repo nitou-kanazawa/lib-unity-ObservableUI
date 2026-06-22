@@ -9,6 +9,6 @@ namespace Nitou.ObservableUI
     public interface IReactiveInputField<T> : IReactivePropertyHolder<T>
         where T : struct
     {
-        bool IsIntaractable { get; set; }
+        bool IsInteractable { get; set; }
     }
 }

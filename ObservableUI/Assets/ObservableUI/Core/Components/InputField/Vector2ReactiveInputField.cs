@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using UnityEngine;
 using TMPro;
 using R3;
@@ -11,7 +12,7 @@ namespace Nitou.ObservableUI
         [SerializeField] TMP_InputField _inputFieldY;
 
 
-        public override bool IsIntaractable
+        public override bool IsInteractable
         {
             get => _inputFieldX.interactable
                    && _inputFieldY.interactable;
@@ -36,13 +37,20 @@ namespace Nitou.ObservableUI
         // Protected Method
         protected override bool TryParseFromView(out Vector2 value)
         {
-            throw new NotImplementedException();
+            value = default;
+            if (float.TryParse(_inputFieldX.text, NumberStyles.Float, CultureInfo.InvariantCulture, out var x) &&
+                float.TryParse(_inputFieldY.text, NumberStyles.Float, CultureInfo.InvariantCulture, out var y))
+            {
+                value = new Vector2(x, y);
+                return true;
+            }
+            return false;
         }
 
         protected override void SetToView(Vector2 value)
         {
-            _inputFieldX.text = value.x.ToString("F2");
-            _inputFieldY.text = value.y.ToString("F2");
+            _inputFieldX.text = value.x.ToString("F2", CultureInfo.InvariantCulture);
+            _inputFieldY.text = value.y.ToString("F2", CultureInfo.InvariantCulture);
         }
 
         protected override Observable<Unit> ObserveEndEditEvent()

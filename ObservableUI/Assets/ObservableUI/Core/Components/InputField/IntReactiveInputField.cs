@@ -12,7 +12,7 @@ namespace Nitou.ObservableUI
         [SerializeField] protected TMP_InputField _inputField;
 
 
-        public override bool IsIntaractable
+        public override bool IsInteractable
         {
             get => _inputField.interactable;
             set => _inputField.interactable = value;

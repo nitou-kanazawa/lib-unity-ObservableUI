@@ -44,7 +44,8 @@ namespace R3
             int toggleCount = toggles.Count();
             int valueCount = values.Count();
             if (toggleCount == 0 || valueCount == 0 || toggleCount != valueCount)
-                throw new InvalidOperationException("");
+                throw new InvalidOperationException(
+                    $"togglesとvaluesは要素数が一致し、かつ空であってはいけません。(toggles: {toggleCount}, values: {valueCount})");
 
 
             var toggleValuePairs = toggles.Zip(values, (toggle, value) => (toggle, value));

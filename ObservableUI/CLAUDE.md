@@ -7,9 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **ObservableUI** is a Unity package that extends R3 (Reactive Extensions for Unity) with reactive UI bindings for Unity's uGUI and TextMeshPro components. It provides bidirectional data binding, observable events, and reactive component wrappers for building reactive user interfaces in Unity.
 
 - **Package Name**: `jp.nitou.observableui`
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Unity Version**: 6000.0+ (Unity 6.2+)
-- **Current Branch**: `feature/switch-to-r3`
 - **Main Branch**: `main`
 
 ## Architecture
@@ -35,7 +34,7 @@ The framework consists of three main layers:
 1. **Reactive Components** (`Assets/ObservableUI/Core/Components/`)
    - `ReactiveInputField<T>`: Base class for type-safe reactive input fields
    - `IntReactiveInputField`, `FloatReactiveInputField`: Concrete implementations
-   - `Vector2ReactiveInputField`, `Vector3ReactiveInputField`: Multi-field inputs (incomplete)
+   - `Vector2ReactiveInputField`, `Vector3ReactiveInputField`: Multi-field inputs
    - `ReactiveEnumDropdown<TEnum>`: Reactive dropdown for enum selection
 
 2. **Interfaces** (`Assets/ObservableUI/Core/Interface/`)
@@ -126,8 +125,6 @@ Note: R3 uses `Disposable.Combine()` instead of `StableCompositeDisposable.Creat
 
 ## Known Incomplete Features
 
-- `Vector2ReactiveInputField.TryParseFromView()`: Throws `NotImplementedException`
-- `Vector3ReactiveInputField.TryParseFromView()`: Throws `NotImplementedException`
 - `Assets/ObservableUI/Localization/`: Empty directory
 - `Assets/ObservableUI/Core/Utilities/`: Empty directory
 

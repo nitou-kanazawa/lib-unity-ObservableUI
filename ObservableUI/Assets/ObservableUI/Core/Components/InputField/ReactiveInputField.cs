@@ -36,7 +36,9 @@ namespace Nitou.ObservableUI
                     if (TryParseFromView(out var value))
                         _property.Value = value;
                     else
-                        _property.OnNext(value);
+                        // パース失敗時は直前の有効値でViewを復元する
+                        // （ReactivePropertyの値は変えないため、下流への不要な通知は発生しない）
+                        SetToView(_property.Value);
                 })
                 .AddTo(this);
         }

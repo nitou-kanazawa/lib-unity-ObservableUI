@@ -27,6 +27,14 @@ namespace R3
             return source.Subscribe(x => image.color = x);
         }
 
+        /// <summary>
+        /// <see cref="Image"/>.spriteへのバインディング．
+        /// </summary>
+        public static IDisposable SubscribeToImageSprite(this Observable<Sprite> source, Image image)
+        {
+            return source.Subscribe(x => image.sprite = x);
+        }
+
         #endregion
     }
 }

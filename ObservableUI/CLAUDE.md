@@ -34,6 +34,7 @@ The framework consists of three main layers:
 1. **Reactive Components** (`Assets/ObservableUI/Core/Components/`)
    - `ReactiveInputField<T>`: Base class for type-safe reactive input fields
    - `IntReactiveInputField`, `FloatReactiveInputField`: Concrete implementations
+   - `IntReactiveInputFieldStepper`, `FloatReactiveInputFieldStepper`: Steppers with Delta/clamp (`MoveNext`/`MovePrevious`)
    - `Vector2ReactiveInputField`, `Vector3ReactiveInputField`: Multi-field inputs
    - `ReactiveEnumDropdown<TEnum>`: Reactive dropdown for enum selection
    - **Trigger/Action Components** (`Components/Triggers/`): Lightweight `[Trigger] To [Action]` components
@@ -47,7 +48,8 @@ The framework consists of three main layers:
 
 3. **Extension Methods** (`Assets/ObservableUI/Core/Extensions/`)
    - Provide reactive bindings for Unity UI components
-   - Targets: Button, Dropdown, Image, InputField, Slider, Text, Toggle,
+   - Targets: Button, Dropdown, Image (color/fillAmount/sprite), RawImage (texture/color),
+     InputField, Slider, Text, Toggle, ScrollRect (normalizedPosition),
      CanvasGroup (alpha/interactable/blocksRaycasts/visible),
      Selectable (interactable), GameObject (SetActive)
    - Naming convention:

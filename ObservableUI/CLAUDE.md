@@ -34,8 +34,11 @@ The framework consists of three main layers:
 1. **Reactive Components** (`Assets/ObservableUI/Core/Components/`)
    - `ReactiveInputField<T>`: Base class for type-safe reactive input fields
    - `IntReactiveInputField`, `FloatReactiveInputField`: Concrete implementations
+   - `IntReactiveInputFieldStepper`, `FloatReactiveInputFieldStepper`: Steppers with Delta/clamp (`MoveNext`/`MovePrevious`)
    - `Vector2ReactiveInputField`, `Vector3ReactiveInputField`: Multi-field inputs
    - `ReactiveEnumDropdown<TEnum>`: Reactive dropdown for enum selection
+   - **Trigger/Action Components** (`Components/Triggers/`): Lightweight `[Trigger] To [Action]` components
+     - `ToggleToActive`: Toggle state → target GameObject active state (`_invert` covers the inactive case)
 
 2. **Interfaces** (`Assets/ObservableUI/Core/Interface/`)
    - `IReactivePropertyHolder<T>`: Base contract for components with reactive properties
@@ -45,6 +48,10 @@ The framework consists of three main layers:
 
 3. **Extension Methods** (`Assets/ObservableUI/Core/Extensions/`)
    - Provide reactive bindings for Unity UI components
+   - Targets: Button, Dropdown, Image (color/fillAmount/sprite), RawImage (texture/color),
+     InputField, Slider, Text, Toggle, ScrollRect (normalizedPosition),
+     CanvasGroup (alpha/interactable/blocksRaycasts/visible),
+     Selectable (interactable), GameObject (SetActive)
    - Naming convention:
      - `SubscribeToXXX`: One-way binding (observable → UI)
      - `BindToXXX`: Two-way binding (reactive property ↔ UI)
@@ -135,7 +142,8 @@ Assets/ObservableUI/
 ├── Core/                          # Runtime assembly
 │   ├── Components/
 │   │   ├── InputField/           # Reactive input field variants
-│   │   └── Dropdown/             # Reactive dropdown components
+│   │   ├── Dropdown/             # Reactive dropdown components
+│   │   └── Triggers/             # [Trigger] To [Action] components
 │   ├── Interface/                # Core interfaces
 │   ├── Extensions/               # Extension methods for UI bindings
 │   ├── Utilities/                # (Empty)
